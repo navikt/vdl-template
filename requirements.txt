@@ -1,0 +1,16 @@
+#dbt
+dbt-snowflake
+
+# gcp
+google-cloud-secret-manager
+
+# app
+uvicorn
+fastapi
+
+# auth
+pyjwt[crypto]
+
+# internal
+inbound-core @ git+https://github.com/navikt/inbound-core.git@6d2d5033d185494b3b8d2f7d22486cd81ff867a9
+snowbird @ git+https://github.com/navikt/snowbird.git@5e10f2650c640bf17ad8fea601255b9710c5dbe7
