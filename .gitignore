@@ -1,3 +1,11 @@
+#python
 .venv
-.vscode
 __pycache__
+
+#vscode
+.vscode
+
+#dbt
+dbt/target
+dbt/dbt_packages
+dbt/logs

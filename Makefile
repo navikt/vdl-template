@@ -42,9 +42,10 @@ dev:
 test:
 	pytest ./tests
 
-ui: 
-	echo "PROJECT_ID":"virksomhetsdatalaget-dev-30e3" && \
-	$(VENV)/$(BIN)/python ./scripts/download_ui.py
+#TODO
+#ui:
+#	echo "PROJECT_ID":"virksomhetsdatalaget-dev-30e3" && \
+#	$(VENV)/$(BIN)/python ./scripts/download_ui.py
 
 run_dbt:
 	../.venv/bin/dbt run --profiles-dir . --target transformer

@@ -1,0 +1,43 @@
+name: "<project name>"
+version: "0.0.1"
+config-version: 2
+
+vars:
+  create_masking_policy_schema: "False"
+  use_force_applying_masking_policy: "True"
+  use_common_masking_policy_schema_only: "True"
+  use_common_masking_policy_db: "False"
+  common_masking_policy_db: "{{ env_var('<PROJECT_DB>') }}"
+  common_masking_policy_schema: "policies"
+  "dbt_date:time_zone": "Oslo"
+
+profile: "<project_name_profile>"
+
+model-paths: ["models"]
+analysis-paths: ["analysis"]
+test-paths: ["tests"]
+seed-paths: ["data"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+docs-paths: ["docs"]
+log-path: "{{ env_var('DBT_LOG_PATH', 'logs') }}"
+target-path: "{{ env_var('DBT_TARGET_PATH', 'target') }}"
+
+clean-targets: ["target", "dbt_packages", "logs"]
+
+models:
+  +persist_docs:
+    relation: true
+    columns: true
+  <prject name>:
+    staging:
+      +schema: "staging"
+    marts:
+      +schema: "marts"
+    intermediate:
+      +schema: "intermediate"
+  post-hook:
+    - "{{ dbt_snow_mask.apply_masking_policy() }}"
+  pre-hook:
+    - "{{ dbt_snow_mask.create_masking_policy('models')}}"
+    - "{{ dbt_snow_mask.create_masking_policy('sources')}}"

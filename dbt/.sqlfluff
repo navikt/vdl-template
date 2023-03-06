@@ -1,0 +1,40 @@
+[sqlfluff]
+dialect = snowflake
+templater = jinja 
+#jinja
+
+[sqlfluff:templater:dbt]
+project_dir = ./dbt
+profiles_dir = ./dbt
+profiles = ./dbt/profiles.yml
+
+[sqlfluff:rules]
+tab_space_size = 2
+max_line_length = 100
+
+[sqlfluff:indentation]
+indented_joins = True
+indented_using_on = True
+template_blocks_indent = False
+
+[sqlfluff:layout:type:comma]
+spacing_before = touch
+line_position = trailing
+
+[sqlfluff:rules:L010]
+# Keywords
+capitalisation_policy = upper
+
+[sqlfluff:rules:L030]
+# Function names
+capitalisation_policy = upper
+
+[sqlfluff:rules:L040]
+# Null & Boolean Literals
+capitalisation_policy = upper
+
+
+[sqlfluff:rules:L057]
+# Special Characters in Identifiers
+allow_space_in_identifier = True
+additional_allowed_characters = ['.','(',')','-']

@@ -1,0 +1,41 @@
+<project name profile>:
+  target: transformer
+  outputs:
+    transformer:
+      type: "snowflake"
+      account: "wx23413.europe-west4.gcp"
+      # User/password auth
+      user: "{{ env_var('DBT_USR') }}"
+      password: "{{ env_var('DBT_PWD') }}"
+      role: <project_tranformer>
+      database: "{{ env_var('<PROJECT_DB>') }}"
+      warehouse: project_transformer
+      schema: "public"
+      threads: 1
+      client_session_keep_alive: False
+    loader:
+      type: "snowflake"
+      account: "wx23413.europe-west4.gcp"
+      # User/password auth
+      user: "{{ env_var('DBT_USR') }}"
+      password: "{{ env_var('DBT_PWD') }}"
+      role: "<project_loader>"
+      database: "{{ env_var('<PROJECT_DB>') }}"
+      warehouse: "<project_loader>"
+      schema: "raw"
+      threads: 1
+      client_session_keep_alive: False
+    constructor:
+      type: "snowflake"
+      account: "wx23413.europe-west4.gcp"
+      # User/password auth
+      user: "{{ env_var('DBT_USR') }}"
+      password: "{{ env_var('DBT_PWD') }}"
+      role: "sysadmin"
+      database: "<project>"
+      warehouse: "<project_loader>"
+      schema: "public"
+      threads: 1
+      client_session_keep_alive: False
+config:
+  send_anonymous_usage_stats: False
