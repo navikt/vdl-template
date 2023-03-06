@@ -1,0 +1,31 @@
+{
+	"name": "dev cont",
+	"build": {
+		"dockerfile": "../Dockerfile",
+		"context": ".."
+	},
+	"mounts": [
+		// Mac
+		"source=${localEnv:HOME}/.config/gcloud,target=/home/.config/gcloud,type=bind,consistency=cached"
+		// Windows
+		//"source=${localEnv:APPDATA}/gcloud,target=/home/.config/gcloud,type=bind,consistency=cached"
+	],
+	"containerEnv": {
+		"GOOGLE_APPLICATION_CREDENTIALS": "/home/.config/gcloud/application_default_credentials.json"
+	},
+	// Set *default* container specific settings.json values on container create.
+	"settings": {},
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"ms-python.python",
+		"ms-azuretools.vscode-docker"
+	],
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"forwardPorts": [
+		3002
+	],
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "pip install -r requirements.txt",
+	// Comment out to connect as root instead.
+	"remoteUser": "root"
+}
