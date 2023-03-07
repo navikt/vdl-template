@@ -1,0 +1,37 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: vdl-<project name>
+  namespace: virksomhetsdatalaget
+  labels:
+    team: virksomhetsdatalaget
+spec:
+  image: "{{ image }}"
+  port: 8080
+  replicas:
+    min: 1
+    max: 1
+  vault:
+    enabled: true
+  liveness:
+    path: /is-alive
+    timeout: 1
+    initialDelay: 5
+    periodSeconds: 5
+    failureThreshold: 30
+  readiness:
+    path: /is-ready
+    timeout: 1
+    initialDelay: 5
+    periodSeconds: 5
+    failureThreshold: 30
+  ingresses:
+    - "https://vdl-<project name>.{{ ingress }}"
+  webproxy: true
+  resources:
+    limits:
+      memory: 2Gi
+      cpu: 1000m
+    requests:
+      memory: 1Gi
+      cpu: 500m
