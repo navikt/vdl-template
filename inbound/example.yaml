@@ -1,0 +1,21 @@
+name: "OeBS postings to Snowflake"
+source:
+  type: "sqlalchemy"
+  spec:
+    connection_string: "{{ env_var('<source>_CONNECTION_STRING') }}"
+    format: "log"
+    source: "<db navn>"
+    interface: "views"
+    chunksize: 290326
+    row_id:
+      - hode_id
+      - linje_id
+target:
+  type: "snowflake"
+  spec:
+    mode: "append"
+    profile: "<proejct name profile>"
+    target: "loader"
+    table: "<table>"
+    profiles_dir: "./dbt"
+    chunksize: 290326
