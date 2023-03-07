@@ -1,0 +1,104 @@
+version: "1.0"
+
+# Databases
+databases:
+  - <project>:
+      shared: no
+      owner: sysadmin
+      schemas:
+        - raw
+        - stages
+        - intermediates
+        - policies
+        - marts
+# Roles
+roles:
+  - <project>_loader:
+      warehouses:
+        - <project>_loader
+      privileges:
+        databases:
+          read:
+            - <project>
+        schemas:
+          read:
+            - <project>.raw
+          write:
+            - <project>.raw
+        tables:
+          read:
+            - <project>.raw.*
+          write:
+            - <project>.raw.*
+      owns:
+        tables:
+          - <project>.raw.*
+      owner: useradmin
+
+  - <project>_transformer:
+      member_of:
+        - commons_owner
+      warehouses:
+        - <project>_transformer
+      privileges:
+        databases:
+          read:
+            - <project>
+        schemas:
+          read:
+            - <project>.raw
+            - <project>.stages
+            - <project>.policies
+            - <project>.marts
+          write:
+            - <project>.stages
+            - <project>.policies
+            - <project>.marts
+            - <project>.intermediates
+        tables:
+          read:
+            - <project>.raw.*
+            - <project>.stages.*
+            - <project>.policies.*
+            - <project>.marts.*
+            - <project>.intermediates.*
+          write:
+            - <project>.stages.*
+            - <project>.policies.*
+            - <project>.marts.*
+            - <project>.intermediates.*
+      owns:
+        tables:
+          - <project>.stages.*
+          - <project>.policies.*
+          - <project>.marts.*
+          - <project>.intermediates.*
+      owner: useradmin
+
+  - <project>_reporting:
+      warehouses:
+        - <project>_user
+      privileges:
+        databases:
+          read:
+            - <project>
+        schemas:
+          read:
+            - <project>.marts
+        tables:
+          read:
+            - <project>.marts.*
+      owner: useradmin
+
+warehouses:
+  - <project>_loader:
+      size: x-small
+      owner: sysadmin
+
+  - <project>_transformer:
+      size: x-small
+      owner: sysadmin
+
+  - <project>_user:
+      size: x-small
+      owner: sysadmin
