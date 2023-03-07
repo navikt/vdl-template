@@ -30,12 +30,12 @@ models:
     relation: true
     columns: true
   <prject name>:
-    staging:
-      +schema: "staging"
+    stages:
+      +schema: "stages"
     marts:
       +schema: "marts"
-    intermediate:
-      +schema: "intermediate"
+    intermediates:
+      +schema: "intermediates"
   post-hook:
     - "{{ dbt_snow_mask.apply_masking_policy() }}"
   pre-hook:
