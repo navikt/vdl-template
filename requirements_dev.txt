@@ -4,3 +4,4 @@ pytest
 sqlfluff
 inbound-core @ git+https://github.com/navikt/inbound-core.git@main
 snowbird @ git+https://github.com/navikt/snowbird.git@main
+pygit2

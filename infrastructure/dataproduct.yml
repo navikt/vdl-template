@@ -1,0 +1,13 @@
+kind: "Dataproduct"
+version: 0.0.1
+metadata:
+  name: vdl-regnskapsdata
+spec:
+  gcp:
+    project_id: "virksomhetsdatalaget-dev-30e3"
+    secrets:
+      - name: "snowflake-account"
+        version: "latest"
+    syncbucket: "sync-service"
+
+

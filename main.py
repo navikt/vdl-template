@@ -1,14 +1,43 @@
 import json
-import random
+import logging
+import os
+import sys
+from pathlib import Path
 from typing import Any
 
+from config.logging import setup_logging
+
+sys.path.append(os.path.dirname(Path(__file__).parent))
 import uvicorn
 from fastapi import FastAPI, Request, Response, status
 from fastapi.responses import JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
+from pygit2 import Repository
 
 from api.auth import get_user
 from api.routes.health import router as health
+from config import config, secrets
+
+# logging
+setup_logging()
+logger = logging.getLogger("dataproduct")
+
+logger.info("starting app...")
+
+# Opt out from sending anonymous usage stats to re_data
+# https://docs.getre.io/latest/docs/re_data/reference/anonymous_usage
+os.environ["RE_DATA_SEND_ANONYMOUS_USAGE_STATS"] = "0"
+
+# configuration
+config = config.get_settings()
+secrets.set_env_variables_from_secrets(config)
+
+# set env for database
+if not os.getenv("<PROJECT>_DB"):
+    repo_name = Repository(".").head.shorthand.replace("-", "_").upper()
+    if repo_name != "MAIN":
+        # TODO: Bør hente ut databasenavn fra en av spesifikasjonene og ikke hardkodes
+        os.environ["<PROJECT>_DB"] = repo_name + "_" + "<PROJECT>"
 
 
 class IndentedJSONResponse(Response):

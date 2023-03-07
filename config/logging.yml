@@ -1,0 +1,36 @@
+version: 1
+disable_existing_loggers: False
+
+formatters:
+    simple:
+        format: "%(asctime)s.%(msecs)03d | %(message)s"
+        datefmt: "%H:%M:%S"
+
+    standard:
+        format: "%(asctime)s.%(msecs)03d | %(levelname)-7s | %(name)s - %(message)s"
+        datefmt: "%H:%M:%S"
+
+    json:
+        class: prefect.logging.formatters.JsonFormatter
+        format: "default"
+
+handlers:
+
+    console:
+        level: 0
+        class: logging.StreamHandler
+        formatter: standard
+
+    snowflake:
+        level: 0
+        class: api.logging.SnowflakeHandler
+
+loggers:
+    dataproduct:
+        level: NOTSET
+        handlers: [snowflake, console]
+        propagate: no
+
+root:
+    level: WARNING
+    handlers: [console]

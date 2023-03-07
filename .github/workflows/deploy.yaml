@@ -62,7 +62,7 @@ jobs:
           CLUSTER: dev-fss
           RESOURCE: infrastructure/nais.yaml
           VAR: image=${{ env.docker_image }}
-          VARS: infrastructure/dev-fss.yaml
+          VARS: infrastructure/nais/dev-fss.yaml
 
   deploy-prod:
     name: Deploy to prod
@@ -75,6 +75,6 @@ jobs:
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: prod-fss
-          RESOURCE: infrastructure/nais.yaml
+          RESOURCE: infrastructure/nais/nais.yaml
           VAR: image=${{ env.docker_image }}
-          VARS: infrastructure/prod-fss.yaml
+          VARS: infrastructure/nais/prod-fss.yaml
