@@ -1,0 +1,10 @@
+*
+
+!api
+!apps
+!main.py
+!requirements.txt
+
+!dbt
+
+!infrastructure/snowbird.yml
