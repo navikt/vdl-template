@@ -21,12 +21,12 @@ auth:
 	gcloud auth login --update-adc
 
 install:
-	python3.9 -m venv $(VENV) && \
+	python3.11 -m venv $(VENV) && \
 		${PY} pip install --upgrade pip && \
 		${PY} pip install -r requirements.txt
 
 install_dev:
-	python3.9 -m venv $(VENV) && \
+	python3.11 -m venv $(VENV) && \
 		${PY} pip install --upgrade pip && \
 		${PY} pip install -r requirements.txt && \
 		${PY} pip install -r requirements_dev.txt
