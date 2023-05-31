@@ -75,7 +75,7 @@ roles:
           - <project>.intermediates.*
       owner: useradmin
 
-  - <project>_reporting:
+  - <project>_reporter:
       warehouses:
         - <project>_user
       privileges:
