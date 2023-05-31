@@ -9,7 +9,7 @@
       password: "{{ env_var('DBT_PWD') }}"
       role: <project_tranformer>
       database: "{{ env_var('<PROJECT_DB>') }}"
-      warehouse: project_transformer
+      warehouse: <project>_transformer
       schema: "public"
       threads: 1
       client_session_keep_alive: False
@@ -41,12 +41,12 @@
       type: snowflake
       account: "wx23413.europe-west4.gcp"
       user: "{{ env_var('DBT_USR') }}"
-      role: "regnskap_transformer"
+      role: "<project>_transformer"
       # SSO config
       authenticator: externalbrowser
       database: "{{ env_var('<PROJECT_DB>') }}"
-      warehouse: "regnskap_transformer"
-      schema: "PUBLIC"
+      warehouse: "project_transformer"
+      schema: "public"
       threads: 1
       client_session_keep_alive: False
       reuse_connections: True
