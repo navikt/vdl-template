@@ -1,5 +1,5 @@
 <project name profile>:
-  target: transformer
+  target: "{{ env_var('DBT_TARGET', 'transformer') }}"
   outputs:
     transformer:
       type: "snowflake"
