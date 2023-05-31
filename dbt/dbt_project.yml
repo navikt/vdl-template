@@ -20,8 +20,6 @@ seed-paths: ["data"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 docs-paths: ["docs"]
-log-path: "{{ env_var('DBT_LOG_PATH', 'logs') }}"
-target-path: "{{ env_var('DBT_TARGET_PATH', 'target') }}"
 
 clean-targets: ["target", "dbt_packages", "logs"]
 
